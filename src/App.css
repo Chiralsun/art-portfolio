@@ -1,0 +1,426 @@
+/* ============================================
+   HEADER / NAVIGATION
+   ============================================ */
+.app-header {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2d3436;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #3498db;
+}
+
+.app-header nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.app-header nav a {
+    color: #2d3436;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.app-header nav a:hover {
+    background: #f0f0f0;
+}
+
+.app-header nav .btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.app-header nav .btn-primary:hover {
+    background: #2980b9;
+    color: white;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.app-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.app-footer {
+    background: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-top: 1px solid #eee;
+    color: #6c757d;
+    margin-top: 2rem;
+}
+
+/* ============================================
+   ARTWORK GRID
+   ============================================ */
+.artwork-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.artwork-card {
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: white;
+}
+
+.artwork-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.artwork-card .image-container {
+    position: relative;
+    padding-bottom: 100%;
+    background: #f0f0f0;
+    overflow: hidden;
+}
+
+.artwork-card .image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.artwork-card:hover .image-container img {
+    transform: scale(1.05);
+}
+
+.artwork-card .info {
+    padding: 1rem;
+}
+
+.artwork-card .info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.artwork-card .info p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.artwork-card .info .price {
+    color: #2d3436;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   ARTWORK FORM
+   ============================================ */
+.artwork-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+
+.artwork-form h2 {
+    margin-bottom: 1.5rem;
+    color: #2d3436;
+}
+
+.artwork-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.artwork-form .form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.artwork-form .form-group input,
+.artwork-form .form-group select,
+.artwork-form .form-group textarea {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.artwork-form .form-group input:focus,
+.artwork-form .form-group select:focus,
+.artwork-form .form-group textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.artwork-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.artwork-form button[type="submit"] {
+    width: 100%;
+    padding: 0.8rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.artwork-form button[type="submit"]:hover {
+    background: #2980b9;
+}
+
+.artwork-form button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Image upload */
+.image-upload {
+    padding: 1rem;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.image-upload input[type="file"] {
+    margin: 0.5rem 0;
+}
+
+.image-upload small {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.image-preview {
+    margin-top: 1rem;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+}
+
+/* ============================================
+   LOADING
+   ============================================ */
+.loading {
+    text-align: center;
+    padding: 4rem;
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+
+
+/* Add to App.css */
+
+/* ============================================
+   ARTWORK DETAIL
+   ============================================ */
+.artwork-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.detail-image {
+    background: #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.detail-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-info .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.detail-info .meta span {
+    background: #f0f0f0;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.detail-info .description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 1.5rem 0;
+    color: #444;
+}
+
+.price-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.price-section .price {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.availability.available {
+    color: #155724;
+    background: #d4edda;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+}
+
+.availability.sold {
+    color: #721c24;
+    background: #f8d7da;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.tags .tag {
+    background: #e9ecef;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.actions a, .actions button {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+}
+
+.actions .edit-btn {
+    background: #3498db;
+    color: white;
+}
+
+.actions .edit-btn:hover {
+    background: #2980b9;
+}
+
+.actions .delete-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.actions .delete-btn:hover {
+    background: #c0392b;
+}
+
+.actions .back-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.actions .back-btn:hover {
+    background: #5a6268;
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .artwork-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .artwork-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .app-main {
+        padding: 1rem;
+    }
+
+    .artwork-detail {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
