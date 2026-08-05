@@ -2,9 +2,9 @@
    HEADER / NAVIGATION
    ============================================ */
 .app-header {
-    background: white;
+    background: rgb(0, 0, 0);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(248, 248, 248, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,9 +14,10 @@
 }
 
 .logo {
+    font-family: 'Courier New', monospace;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #2d3436;
+    color: #e8edee;
     text-decoration: none;
 }
 
@@ -66,10 +67,10 @@
    FOOTER
    ============================================ */
 .app-footer {
-    background: white;
+    background: black;
     padding: 1.5rem 2rem;
     text-align: center;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #6e6b6b;
     color: #6c757d;
     margin-top: 2rem;
 }
@@ -102,7 +103,7 @@
 .artwork-card .image-container {
     position: relative;
     padding-bottom: 100%;
-    background: #f0f0f0;
+    background: #9b9999;
     overflow: hidden;
 }
 

@@ -28,7 +28,8 @@ const ArtworkGrid = ({ artworks, loading }) => {
                     </div>
                     <div className="info">
                         <h3>{artwork.title}</h3>
-                        <p>{artwork.medium} {artwork.year && `• ${artwork.year}`}</p>
+                        <p>{artwork.medium} {artwork.creationDate && `• ${new Date(artwork.creationDate).getFullYear()}`}</p>
+
                         {artwork.price && <p className="price">${artwork.price}</p>}
                     </div>
                 </Link>

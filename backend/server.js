@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 
 // 1. CORS - Allow frontend to communicate with backend
 app.use(cors({
-    origin: 'http://localhost:3000', // React app address
+    origin: 'http://localhost:5173', // React app address
     credentials: true
 }));
 

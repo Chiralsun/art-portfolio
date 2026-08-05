@@ -6,7 +6,10 @@ const artworkSchema = new mongoose.Schema({
         required: true
     },
     description: String,
-    year: Number,
+    creationDate: {
+        type:Date,
+        default: Date.now
+    },
     dimensions: {
         height: Number,   // in cm or inches
         width: Number,

@@ -1,21 +1,21 @@
 const Artwork = require('../models/Artwork');
 const fs = require('fs');
 const path = require('path');
-const sharp = require('sharp'); // For image processing
+const sharp = require('sharp');
 
 // Create artwork with multiple images
 exports.createArtwork = async (req, res) => {
     try {
-        const { title, description, year, dimensions, medium, style, price, isAvailable, tags } = req.body;
+        // ✅ CHANGED: year → creationDate
+        const { title, description, creationDate, dimensions, medium, style, price, isAvailable, tags } = req.body;
         
         // Process uploaded images
         const images = [];
         let thumbnailUrl = '';
 
-        // Handle multiple images
         if (req.files && req.files.images) {
             req.files.images.forEach((file, index) => {
-                const isMain = index === 0; // First image is main by default
+                const isMain = index === 0;
                 images.push({
                     url: `/uploads/images/${file.filename}`,
                     isMain: isMain,
@@ -24,7 +24,6 @@ exports.createArtwork = async (req, res) => {
             });
         }
 
-        // Handle thumbnail (or use first image as thumbnail)
         if (req.files && req.files.thumbnail) {
             thumbnailUrl = `/uploads/thumbnails/${req.files.thumbnail[0].filename}`;
         } else if (images.length > 0) {
@@ -33,7 +32,6 @@ exports.createArtwork = async (req, res) => {
             return res.status(400).json({ error: 'At least one image is required' });
         }
 
-        // Parse dimensions if provided
         let parsedDimensions = {};
         if (dimensions) {
             try {
@@ -43,10 +41,11 @@ exports.createArtwork = async (req, res) => {
             }
         }
 
+        // ✅ CHANGED: year → creationDate
         const artwork = new Artwork({
             title,
             description,
-            year: year || undefined,
+            creationDate: creationDate ? new Date(creationDate) : new Date(),
             dimensions: parsedDimensions,
             medium,
             style,
@@ -61,7 +60,6 @@ exports.createArtwork = async (req, res) => {
         await artwork.save();
         res.status(201).json(artwork);
     } catch (error) {
-        // Clean up uploaded files on error
         if (req.files) {
             Object.values(req.files).flat().forEach(file => {
                 if (fs.existsSync(file.path)) {
@@ -76,12 +74,22 @@ exports.createArtwork = async (req, res) => {
 // Get all artworks with filtering
 exports.getArtworks = async (req, res) => {
     try {
+        // ✅ CHANGED: year → creationDate in filter
         const { medium, style, year, featured, search, limit } = req.query;
         
         let filter = {};
         if (medium) filter.medium = medium;
         if (style) filter.style = style;
-        if (year) filter.year = parseInt(year);
+        
+        // ✅ CHANGED: Filter by year from creationDate
+        if (year) {
+            const yearNum = parseInt(year);
+            filter.creationDate = {
+                $gte: new Date(`${yearNum}-01-01`),
+                $lt: new Date(`${yearNum + 1}-01-01`)
+            };
+        }
+        
         if (featured === 'true') filter.featured = true;
         if (search) {
             filter.$text = { $search: search };
@@ -93,14 +101,15 @@ exports.getArtworks = async (req, res) => {
             query.limit(parseInt(limit));
         }
 
-        const artworks = await query.sort({ createdAt: -1 });
+        // ✅ CHANGED: Sort by creationDate (newest first)
+        const artworks = await query.sort({ creationDate: -1 });
         res.json(artworks);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
-// Get single artwork with full details
+// Get single artwork
 exports.getArtwork = async (req, res) => {
     try {
         const artwork = await Artwork.findById(req.params.id);
@@ -125,9 +134,7 @@ exports.updateArtwork = async (req, res) => {
         
         // Handle image updates
         if (req.files) {
-            // Delete old images if new ones are uploaded
             if (req.files.images) {
-                // Delete old image files
                 artwork.images.forEach(img => {
                     const oldPath = path.join(__dirname, '..', img.url);
                     if (fs.existsSync(oldPath)) {
@@ -135,7 +142,6 @@ exports.updateArtwork = async (req, res) => {
                     }
                 });
                 
-                // Add new images
                 const newImages = req.files.images.map((file, index) => ({
                     url: `/uploads/images/${file.filename}`,
                     isMain: index === 0,
@@ -144,9 +150,7 @@ exports.updateArtwork = async (req, res) => {
                 artwork.images = newImages;
             }
 
-            // Update thumbnail
             if (req.files.thumbnail) {
-                // Delete old thumbnail
                 const oldThumbPath = path.join(__dirname, '..', artwork.thumbnailUrl);
                 if (fs.existsSync(oldThumbPath)) {
                     fs.unlinkSync(oldThumbPath);
@@ -158,7 +162,10 @@ exports.updateArtwork = async (req, res) => {
         // Update other fields
         if (updates.title) artwork.title = updates.title;
         if (updates.description) artwork.description = updates.description;
-        if (updates.year) artwork.year = updates.year;
+        
+        // ✅ CHANGED: year → creationDate
+        if (updates.creationDate) artwork.creationDate = new Date(updates.creationDate);
+        
         if (updates.dimensions) {
             try {
                 artwork.dimensions = JSON.parse(updates.dimensions);
@@ -176,7 +183,6 @@ exports.updateArtwork = async (req, res) => {
         await artwork.save();
         res.json(artwork);
     } catch (error) {
-        // Clean up newly uploaded files
         if (req.files) {
             Object.values(req.files).flat().forEach(file => {
                 if (fs.existsSync(file.path)) {
@@ -196,7 +202,6 @@ exports.deleteArtwork = async (req, res) => {
             return res.status(404).json({ error: 'Artwork not found' });
         }
 
-        // Delete all images
         [...artwork.images, { url: artwork.thumbnailUrl }].forEach(img => {
             const filePath = path.join(__dirname, '..', img.url);
             if (fs.existsSync(filePath)) {
@@ -212,16 +217,22 @@ exports.deleteArtwork = async (req, res) => {
 };
 
 // Get all available filters
+// ✅ CHANGED: Get years from creationDate
 exports.getFilters = async (req, res) => {
     try {
         const mediums = await Artwork.distinct('medium');
         const styles = await Artwork.distinct('style');
-        const years = await Artwork.distinct('year');
+        
+        // Get distinct years from creationDate
+        const artworks = await Artwork.find({}, 'creationDate');
+        const years = [...new Set(artworks.map(a => 
+            a.creationDate ? a.creationDate.getFullYear() : null
+        ))].filter(y => y).sort((a, b) => b - a);
         
         res.json({
             mediums: mediums.filter(m => m),
             styles: styles.filter(s => s),
-            years: years.filter(y => y)
+            years: years
         });
     } catch (error) {
         res.status(500).json({ error: error.message });

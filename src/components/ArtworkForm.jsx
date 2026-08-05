@@ -8,7 +8,14 @@ const ArtworkForm = ({ artwork, onSuccess }) => {
     const [formData, setFormData] = useState({
         title: artwork?.title || '',
         description: artwork?.description || '',
-        year: artwork?.year || '',
+
+    creationDate: artwork?.creationDate ? new Date(artwork.creationDate).toISOString().split('T')[0] : '',
+
+
+
+
+
+
         medium: artwork?.medium || '',
         style: artwork?.style || '',
         price: artwork?.price || '',
@@ -45,7 +52,7 @@ const ArtworkForm = ({ artwork, onSuccess }) => {
             // Append all fields
             formDataToSend.append('title', formData.title);
             formDataToSend.append('description', formData.description);
-            formDataToSend.append('year', formData.year);
+            formDataToSend.append('creationDate', formData.creationDate);
             formDataToSend.append('medium', formData.medium);
             formDataToSend.append('style', formData.style);
             formDataToSend.append('price', formData.price);
@@ -127,11 +134,11 @@ const ArtworkForm = ({ artwork, onSuccess }) => {
 
             <div className="form-row">
                 <div className="form-group">
-                    <label>Year</label>
+                    <label>creationDate</label>
                     <input
-                        type="number"
-                        value={formData.year}
-                        onChange={(e) => setFormData({...formData, year: e.target.value})}
+                        type="date"
+                        value={formData.creationDate}
+                        onChange={(e) => setFormData({...formData, creationDate: e.target.value})}
                     />
                 </div>
 

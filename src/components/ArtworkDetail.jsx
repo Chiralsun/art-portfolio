@@ -55,7 +55,16 @@ const ArtworkDetail = ({ artwork, onDelete }) => {
                 <h1>{artworkData.title}</h1>
                 <div className="meta">
                     {artworkData.medium && <span>{artworkData.medium}</span>}
-                    {artworkData.year && <span>{artworkData.year}</span>}
+                    
+                    
+                    {artworkData.creationDate && (
+    <span>{new Date(artworkData.creationDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    })}</span>
+)}
+
                     {artworkData.dimensions?.height && (
                         <span>{artworkData.dimensions.height} × {artworkData.dimensions.width} {artworkData.dimensions.unit}</span>
                     )}
