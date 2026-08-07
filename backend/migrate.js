@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Connect to MongoDB
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/artportfolio';
+const MONGODB_URI = process.env.MONGODB_URI ;
 
 console.log('📊 Connecting to MongoDB...');
 
