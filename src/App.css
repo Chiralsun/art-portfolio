@@ -32,7 +32,7 @@
 }
 
 .app-header nav a {
-    color: #2d3436;
+    color: #e0e0e0; /* ✅ Changed to light */
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -40,7 +40,7 @@
 }
 
 .app-header nav a:hover {
-    background: #f0f0f0;
+    background: #333;
 }
 
 .app-header nav .btn-primary {
@@ -61,6 +61,8 @@
     margin: 0 auto;
     padding: 2rem;
     min-height: 80vh;
+    background: #1a1a1a; /* ✅ Dark background for main content */
+    color: #e0e0e0; /* ✅ Light text */
 }
 
 /* ============================================
@@ -71,7 +73,7 @@
     padding: 1.5rem 2rem;
     text-align: center;
     border-top: 1px solid #6e6b6b;
-    color: #6c757d;
+    color: #aaa; /* ✅ Changed to light grey */
     margin-top: 2rem;
 }
 
@@ -92,18 +94,18 @@
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
-    background: white;
+    background: #2d2d2d; /* ✅ Dark card background */
 }
 
 .artwork-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
 .artwork-card .image-container {
     position: relative;
     padding-bottom: 100%;
-    background: #9b9999;
+    background: #444;
     overflow: hidden;
 }
 
@@ -128,15 +130,16 @@
 .artwork-card .info h3 {
     font-size: 1.1rem;
     margin-bottom: 0.3rem;
+    color: #ffffff; /* ✅ White title */
 }
 
 .artwork-card .info p {
-    color: #666;
+    color: #bbb; /* ✅ Light grey text */
     font-size: 0.9rem;
 }
 
 .artwork-card .info .price {
-    color: #2d3436;
+    color: #ffd700; /* ✅ Gold color for price */
     font-weight: bold;
     font-size: 1.1rem;
     margin-top: 0.5rem;
@@ -149,14 +152,14 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
-    background: white;
+    background: #2d2d2d; /* ✅ Dark background */
     border-radius: 12px;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
 }
 
 .artwork-form h2 {
     margin-bottom: 1.5rem;
-    color: #2d3436;
+    color: #ffffff; /* ✅ White heading */
 }
 
 .artwork-form .form-group {
@@ -167,7 +170,7 @@
     display: block;
     margin-bottom: 0.3rem;
     font-weight: 500;
-    color: #495057;
+    color: #ddd; /* ✅ Light label */
 }
 
 .artwork-form .form-group input,
@@ -175,10 +178,12 @@
 .artwork-form .form-group textarea {
     width: 100%;
     padding: 0.6rem 1rem;
-    border: 2px solid #dee2e6;
+    border: 2px solid #444;
     border-radius: 6px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    background: #1a1a1a; /* ✅ Dark input background */
+    color: #e0e0e0; /* ✅ Light text */
 }
 
 .artwork-form .form-group input:focus,
@@ -219,17 +224,19 @@
 /* Image upload */
 .image-upload {
     padding: 1rem;
-    border: 2px dashed #dee2e6;
+    border: 2px dashed #444;
     border-radius: 8px;
     margin-bottom: 1rem;
+    background: #1a1a1a;
 }
 
 .image-upload input[type="file"] {
     margin: 0.5rem 0;
+    color: #e0e0e0;
 }
 
 .image-upload small {
-    color: #6c757d;
+    color: #aaa;
     font-size: 0.8rem;
 }
 
@@ -241,7 +248,7 @@
     max-width: 200px;
     max-height: 200px;
     border-radius: 8px;
-    border: 2px solid #dee2e6;
+    border: 2px solid #444;
 }
 
 /* ============================================
@@ -251,12 +258,8 @@
     text-align: center;
     padding: 4rem;
     font-size: 1.2rem;
-    color: #6c757d;
+    color: #ccc; /* ✅ Light text */
 }
-
-
-
-/* Add to App.css */
 
 /* ============================================
    ARTWORK DETAIL
@@ -271,7 +274,7 @@
 }
 
 .detail-image {
-    background: #f0f0f0;
+    background: #2d2d2d;
     border-radius: 12px;
     overflow: hidden;
     aspect-ratio: 4/3;
@@ -286,6 +289,7 @@
 .detail-info h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: #ffffff; /* ✅ White title */
 }
 
 .detail-info .meta {
@@ -296,17 +300,18 @@
 }
 
 .detail-info .meta span {
-    background: #f0f0f0;
+    background: #2d2d2d;
     padding: 0.3rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
+    color: #ccc; /* ✅ Light text */
 }
 
 .detail-info .description {
     font-size: 1.1rem;
     line-height: 1.8;
     margin: 1.5rem 0;
-    color: #444;
+    color: #ddd; /* ✅ Light text */
 }
 
 .price-section {
@@ -315,25 +320,27 @@
     gap: 1rem;
     margin: 1.5rem 0;
     padding: 1rem;
-    background: #f8f9fa;
+    background: #2d2d2d;
     border-radius: 8px;
+    border: 1px solid #444;
 }
 
 .price-section .price {
     font-size: 1.8rem;
     font-weight: bold;
+    color: #ffd700; /* ✅ Gold color */
 }
 
 .availability.available {
-    color: #155724;
-    background: #d4edda;
+    color: #8fdf9f;
+    background: #1a3a2a;
     padding: 0.3rem 1rem;
     border-radius: 20px;
 }
 
 .availability.sold {
-    color: #721c24;
-    background: #f8d7da;
+    color: #df8f8f;
+    background: #3a1a1a;
     padding: 0.3rem 1rem;
     border-radius: 20px;
 }
@@ -346,10 +353,11 @@
 }
 
 .tags .tag {
-    background: #e9ecef;
+    background: #2d2d2d;
     padding: 0.2rem 0.8rem;
     border-radius: 20px;
     font-size: 0.85rem;
+    color: #bbb;
 }
 
 .actions {
@@ -387,14 +395,13 @@
 }
 
 .actions .back-btn {
-    background: #6c757d;
+    background: #555;
     color: white;
 }
 
 .actions .back-btn:hover {
-    background: #5a6268;
+    background: #666;
 }
-
 
 /* ============================================
    RESPONSIVE
@@ -424,4 +431,3 @@
         gap: 2rem;
     }
 }
-
