@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const ArtworkDetail = ({ artwork, onDelete }) => {
+const ArtworkDetail = ({ artwork, onDelete ,isAdmin }) => {
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
     const { id } = useParams();
@@ -92,11 +92,16 @@ await axios.delete(`${API_URL}/api/artworks/${id}`);
                         ))}
                     </div>
                 )}
-                <div className="actions">
-                    <Link to={`/edit/${artworkData._id}`} className="edit-btn">Edit</Link>
-                    <button onClick={handleDelete} className="delete-btn">Delete</button>
-                    <Link to="/" className="back-btn">Back to Gallery</Link>
-                </div>
+<div className="actions">
+    {isAdmin && (
+        <>
+            <Link to={`/edit/${artworkData._id}`} className="edit-btn">Edit</Link>
+            <button onClick={handleDelete} className="delete-btn">Delete</button>
+        </>
+    )}
+    <Link to="/" className="back-btn">Back to Gallery</Link>
+</div>
+
             </div>
         </div>
     );

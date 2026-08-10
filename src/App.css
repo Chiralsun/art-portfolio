@@ -402,7 +402,59 @@
 .actions .back-btn:hover {
     background: #666;
 }
+/*======================================
+admin login styles
+=====================*/
+/* ============================================
+   ADMIN BUTTONS
+   ============================================ */
+.btn-login {
+    background: transparent;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
 
+.btn-login:hover {
+    background: #3a3a3a;
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.btn-logout {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 0.9rem;
+}
+
+.btn-logout:hover {
+    background: #c0392b;
+}
+
+/* Hide Add button when not admin */
+.btn-primary {
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    color: white;
+}
 /* ============================================
    RESPONSIVE
    ============================================ */
