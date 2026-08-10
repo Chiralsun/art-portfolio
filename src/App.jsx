@@ -10,7 +10,7 @@ import ArtworkForm from './components/ArtworkForm';
 import ArtworkDetail from './components/ArtworkDetail';
 import AdminLogin from './pages/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
-import About from './pages/About';
+import About from './pages/about';
 
 
 function App() {
