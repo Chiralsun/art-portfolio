@@ -10,6 +10,8 @@ import ArtworkForm from './components/ArtworkForm';
 import ArtworkDetail from './components/ArtworkDetail';
 import AdminLogin from './pages/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
+import About from './pages/About';
+
 
 function App() {
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -69,7 +71,11 @@ function App() {
                     <Link to="/" className="logo">🎨 Art Portfolio</Link>
                     <nav>
                         <Link to="/">Gallery</Link>
-                        
+                
+
+        <Link to="/about">About</Link>  {/* ✅ Add this line */}
+
+
                         {/* Show Admin links only if logged in */}
                         {isAdmin ? (
                             <>
@@ -106,10 +112,14 @@ function App() {
     />
 } />
 
+<Route path="/about" element={<About />} />
                         
                         <Route path="/admin/login" element={
                             <AdminLogin setIsAdmin={setIsAdmin} />
                         } />
+                        
+
+
                         
                         {/* Protected Routes (Admin Only) */}
                         <Route path="/add" element={
