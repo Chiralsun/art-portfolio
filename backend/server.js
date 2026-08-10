@@ -34,6 +34,12 @@ app.use(cors({
         const allowedOrigins = [
             'http://localhost:5173',
             'http://localhost:3000',
+
+    'https://art-portfolio-f8g9.vercel.app', // Your main production URL
+    'https://art-portfolio-f8g9-jwrn9ezjb-chiralsuns-projects.vercel.app', // The preview URL from the error
+
+
+
             process.env.FRONTEND_URL
         ].filter(Boolean);
         
