@@ -93,10 +93,12 @@ await axios.delete(`${API_URL}/api/artworks/${id}`);
                     </div>
                 )}
 <div className="actions">
-
+    {isAdmin && (
+        <>
             <Link to={`/edit/${artworkData._id}`} className="edit-btn">Edit</Link>
             <button onClick={handleDelete} className="delete-btn">Delete</button>
-
+        </>
+    )}
     <Link to="/" className="back-btn">Back to Gallery</Link>
 </div>
 
