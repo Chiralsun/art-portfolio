@@ -3,6 +3,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const ArtworkDetail = ({ artwork, onDelete }) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
     const { id } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -19,7 +21,9 @@ const ArtworkDetail = ({ artwork, onDelete }) => {
 
     const fetchArtwork = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/artworks/${id}`);
+const res = await axios.get(`${API_URL}/api/artworks/${id}`);
+
+
             setArtworkData(res.data);
         } catch (error) {
             console.error('Error fetching artwork:', error);
@@ -32,7 +36,8 @@ const ArtworkDetail = ({ artwork, onDelete }) => {
         if (!window.confirm('Delete this artwork?')) return;
         
         try {
-            await axios.delete(`http://localhost:5000/api/artworks/${id}`);
+await axios.delete(`${API_URL}/api/artworks/${id}`);
+
             if (onDelete) onDelete(id);
             navigate('/');
         } catch (error) {
@@ -47,7 +52,9 @@ const ArtworkDetail = ({ artwork, onDelete }) => {
         <div className="artwork-detail">
             <div className="detail-image">
                 <img 
-                    src={`http://localhost:5000${artworkData.images?.[0]?.url || artworkData.thumbnailUrl}`}
+                src={`${API_URL}${artworkData.images?.[0]?.url || artworkData.thumbnailUrl}`}
+
+
                     alt={artworkData.title}
                 />
             </div>

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ArtworkForm = ({ artwork, onSuccess }) => {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -68,9 +70,10 @@ const ArtworkForm = ({ artwork, onSuccess }) => {
                 formDataToSend.append('images', image);
             }
 
-            const url = artwork 
-                ? `http://localhost:5000/api/artworks/${artwork._id}`
-                : 'http://localhost:5000/api/artworks';
+const url = artwork 
+    ? `${API_URL}/api/artworks/${artwork._id}`
+    : `${API_URL}/api/artworks`;
+
             
             const method = artwork ? 'put' : 'post';
 

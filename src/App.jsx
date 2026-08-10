@@ -9,6 +9,8 @@ import ArtworkForm from './components/ArtworkForm';
 import ArtworkDetail from './components/ArtworkDetail';
 
 function App() {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
     const [artworks, setArtworks] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -19,7 +21,10 @@ function App() {
 
     const loadArtworks = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/artworks');
+
+        const res = await axios.get(`${API_URL}/api/artworks`);
+
+
             setArtworks(res.data);
         } catch (error) {
             console.error('Failed to load artworks:', error);

@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ArtworkGrid = ({ artworks, loading }) => {
+
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
     if (loading) {
         return <div className="loading">Loading artworks...</div>;
     }
@@ -21,9 +24,12 @@ const ArtworkGrid = ({ artworks, loading }) => {
                 <Link to={`/artwork/${artwork._id}`} key={artwork._id} className="artwork-card">
                     <div className="image-container">
                         <img 
-                            src={`http://localhost:5000${artwork.thumbnailUrl || artwork.images?.[0]?.url}`}
+
+
+                            src={`${API_URL}${artwork.thumbnailUrl || artwork.images?.[0]?.url}`}
                             alt={artwork.title}
                             loading="lazy"
+
                         />
                     </div>
                     <div className="info">
