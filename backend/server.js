@@ -33,6 +33,7 @@ app.use(cors({
                 'http://localhost:5174',
             'http://localhost:3000',
             'https://art-portfolio-f8g9.vercel.app',
+            'https://art-portfolio-mocha.vercel.app/',
             'https://art-portfolio-f8g9-jwrn9ezjb-chiralsuns-projects.vercel.app',
             process.env.FRONTEND_URL
         ].filter(Boolean);
