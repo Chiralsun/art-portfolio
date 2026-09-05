@@ -31,6 +31,8 @@ const artworkSchema = new mongoose.Schema({
     // Multiple images support
     images: [{
         url: String,
+        publicId: String, 
+
         isMain: { type: Boolean, default: false },
         caption: String,
         order: Number
@@ -39,7 +41,11 @@ const artworkSchema = new mongoose.Schema({
     thumbnailUrl: {
         type: String,
         required: true
+
     },
+    thumbnailPublicId: {
+        type: String
+    }
     featured: {
         type: Boolean,
         default: false

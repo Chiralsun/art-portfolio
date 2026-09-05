@@ -1,42 +1,41 @@
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const { CloudinaryStorage } = require('multer-storage-cloudinary-v2');
+const cloudinary = require('../config/cloudinary');
 
-// Ensure upload directories exist
-const ensureDir = (dir) => {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-};
-
-// Configure storage
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // Different storage for main images and thumbnails
-        const isThumbnail = file.fieldname === 'thumbnail';
-        const uploadPath = isThumbnail ? 'uploads/thumbnails/' : 'uploads/images/';
-        ensureDir(uploadPath);
-        cb(null, uploadPath);
-    },
-    filename: (req, file, cb) => {
-        // Create unique filename: timestamp-random-originalname
-        const unique = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const ext = path.extname(file.originalname);
-        cb(null, unique + ext);
+// Configure Cloudinary storage
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        // Folder structure in Cloudinary
+        folder: 'art-gallery',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        transformation: [{ quality: 'auto' }], // Auto-optimize images
+        
+        // Generate unique filename and folder path
+        public_id: (req, file) => {
+            // Create unique filename: timestamp-random
+            const unique = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            
+            // Different folders for images vs thumbnails
+            if (file.fieldname === 'thumbnail') {
+                return `thumbnails/${unique}`;  // Stores in thumbnails/ folder
+            }
+            return `images/${unique}`;  // Stores in images/ folder
+        }
     }
 });
 
-// File filter for images
+// File filter for images (only allow image files)
 const fileFilter = (req, file, cb) => {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (allowedTypes.includes(file.mimetype)) {
-        cb(null, true);
+        cb(null, true);  // Accept the file
     } else {
-        cb(new Error('Only JPEG, PNG, GIF, and WebP images are allowed'), false);
+        cb(new Error('Only JPEG, PNG, GIF, and WebP images are allowed'), false);  // Reject the file
     }
 };
 
-// Configure multer for multiple files
+// Configure multer with Cloudinary storage
 const upload = multer({
     storage: storage,
     limits: {
