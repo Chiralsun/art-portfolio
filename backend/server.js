@@ -4,8 +4,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
-const fs = require('fs');
 require('dotenv').config();
 
 // ============================================
@@ -24,7 +22,6 @@ const PORT = process.env.PORT || 5000;
 // ============================================
 
 // 1. CORS - Allow frontend to communicate with backend
-// ✅ FIXED: Use environment variable for production
 app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
@@ -34,12 +31,8 @@ app.use(cors({
         const allowedOrigins = [
             'http://localhost:5173',
             'http://localhost:3000',
-
-    'https://art-portfolio-f8g9.vercel.app', // Your main production URL
-    'https://art-portfolio-f8g9-jwrn9ezjb-chiralsuns-projects.vercel.app', // The preview URL from the error
-
-
-
+            'https://art-portfolio-f8g9.vercel.app',
+            'https://art-portfolio-f8g9-jwrn9ezjb-chiralsuns-projects.vercel.app',
             process.env.FRONTEND_URL
         ].filter(Boolean);
         
@@ -61,10 +54,7 @@ app.use(express.json());
 // 3. URL Encoded Parser - Parse form data
 app.use(express.urlencoded({ extended: true }));
 
-// 4. Static Files - Serve uploaded images
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// 5. Logging Middleware (optional but helpful)
+// 4. Logging Middleware (optional but helpful)
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
     next();
@@ -121,25 +111,6 @@ app.use((err, req, res, next) => {
 });
 
 // ============================================
-// CREATE UPLOADS FOLDER IF IT DOESN'T EXIST
-// ============================================
-const uploadsDir = path.join(__dirname, 'uploads');
-const imagesDir = path.join(uploadsDir, 'images');
-const thumbnailsDir = path.join(uploadsDir, 'thumbnails');
-
-// Create directories recursively
-const ensureDirectoryExists = (dirPath) => {
-    if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath, { recursive: true });
-        console.log(`📁 Created directory: ${dirPath}`);
-    }
-};
-
-ensureDirectoryExists(uploadsDir);
-ensureDirectoryExists(imagesDir);
-ensureDirectoryExists(thumbnailsDir);
-
-// ============================================
 // CONNECT TO MONGODB
 // ============================================
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/artportfolio';
@@ -148,7 +119,6 @@ mongoose.connect(MONGODB_URI)
 .then(() => {
     console.log('✅ Connected to MongoDB successfully');
     console.log(`📊 Database: ${mongoose.connection.name}`);
-    console.log(`🔗 Connection string: ${MONGODB_URI.replace(/\/\/.*@/, '//<credentials>@')}`);
 })
 .catch((err) => {
     console.error('❌ MongoDB connection error:', err);
@@ -181,7 +151,6 @@ process.on('SIGINT', async () => {
 app.listen(PORT, () => {
     console.log(`\n🚀 Server is running on port ${PORT}`);
     console.log(`📍 API URL: http://localhost:${PORT}/api/artworks`);
-    console.log(`🖼️  Images URL: http://localhost:${PORT}/uploads/`);
     console.log(`💚 Health check: http://localhost:${PORT}/api/health`);
     console.log(`\n✨ Ready to serve your art portfolio!\n`);
 });

@@ -45,7 +45,8 @@ const artworkSchema = new mongoose.Schema({
     },
     thumbnailPublicId: {
         type: String
-    }
+    },
+
     featured: {
         type: Boolean,
         default: false
