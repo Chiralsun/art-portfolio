@@ -26,22 +26,17 @@ app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        
-        // List of allowed origins (no trailing slash)
+
         const allowedOrigins = [
             'http://localhost:5173',
-                'http://localhost:5174',
+            'http://localhost:5174',
             'http://localhost:3000',
-            'https://art-portfolio-f8g9.vercel.app',
-            'https://art-portfolio-mocha.vercel.app/',
+            'https://art-portfolio-mocha.vercel.app',
             'https://art-portfolio-f8g9-jwrn9ezjb-chiralsuns-projects.vercel.app',
             process.env.FRONTEND_URL
         ].filter(Boolean);
-        
-        // Remove trailing slash if present
-        const normalizedOrigin = origin.replace(/\/$/, '');
-        
-        if (allowedOrigins.includes(normalizedOrigin)) {
+
+        if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
