@@ -52,7 +52,7 @@ await axios.delete(`${API_URL}/api/artworks/${id}`);
         <div className="artwork-detail">
             <div className="detail-image">
                 <img 
-                src={`${API_URL}${artworkData.images?.[0]?.url || artworkData.thumbnailUrl}`}
+    src={artworkData.images?.[0]?.url || artworkData.thumbnailUrl}
 
 
                     alt={artworkData.title}
